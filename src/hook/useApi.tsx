@@ -1,14 +1,18 @@
 import { useCallback } from "react";
+import { loadTasksActionCreator } from "../store/features/taskSlice";
 import { useAppDispatch } from "../store/hooks";
-import TaskStructure from "../types";
+import { TasksStructure } from "../types";
 
 export const useApi = () => {
-  const getApiData = useCallback(async () => {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const listResponse = await fetch(`${process.env.REACT_APP_URL_API}`);
+  const getApi = useCallback(async () => {
+    const response = await fetch(`${process.env.REACT_APP_URL_API}`);
 
-    const result = (await listResponse.json()) as TaskStructure[];
-  }, []);
-  return { getApiData };
+    const result = (await response.json()) as TasksStructure;
+
+    dispatch(loadTasksActionCreator(result));
+  }, [dispatch]);
+
+  return { getApi };
 };
