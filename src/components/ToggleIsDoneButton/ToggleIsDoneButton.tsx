@@ -1,4 +1,3 @@
-import { type } from "os";
 import { toggleIsDoneActionCreator } from "../../store/features/taskSlice";
 import { useAppDispatch } from "../../store/hooks";
 import Button from "../Button/Button";
